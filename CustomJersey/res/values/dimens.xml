@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<dimen name="name_size_port">50sp</dimen>
+	<dimen name="name_size_land">35sp</dimen>
+</resources>

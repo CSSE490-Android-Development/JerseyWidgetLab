@@ -3,6 +3,8 @@ package com.fernferret.customjersey;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -105,7 +107,31 @@ public class ShowJersey extends Activity {
 			mJerseyView.setImageDrawable(mRes.getDrawable(R.drawable.red_jersey));
 		}
 		
+		int widthThreshold;
+		
+		if (mRes.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+		    mPlayerNameView.setTextSize(mRes.getDimension(R.dimen.name_size_port));
+		    widthThreshold = 170;
+		} else {
+	        mPlayerNameView.setTextSize(mRes.getDimension(R.dimen.name_size_land));
+	        widthThreshold = 120;
+		}
+		
 
+		       
+        // Resize the name
+        Rect bounds = new Rect();
+        Paint textPaint = mPlayerNameView.getPaint();
+        textPaint.getTextBounds(mPlayerName, 0, mPlayerName.length(), bounds);
+        int textWidth = bounds.width();
+        
+        while (textWidth > widthThreshold) {
+            mPlayerNameView.setTextSize(mPlayerNameView.getTextSize() - 1);
+            bounds = new Rect();
+            textPaint = mPlayerNameView.getPaint();
+            textPaint.getTextBounds(mPlayerName, 0, mPlayerName.length(), bounds);
+            textWidth = bounds.width();
+        }
 	}
 
 	@Override
@@ -128,20 +154,6 @@ public class ShowJersey extends Activity {
 	protected void onResume() {
 		super.onResume();
 		updateJersey();
-        
-        // Resize the name
-        Rect bounds = new Rect();
-        Paint textPaint = mPlayerNameView.getPaint();
-        textPaint.getTextBounds(mPlayerName, 0, mPlayerName.length(), bounds);
-        int textWidth = bounds.width();
-        
-        while (textWidth > 170) {
-            mPlayerNameView.setTextSize(mPlayerNameView.getTextSize() - 1);
-            bounds = new Rect();
-            textPaint = mPlayerNameView.getPaint();
-            textPaint.getTextBounds(mPlayerName, 0, mPlayerName.length(), bounds);
-            textWidth = bounds.width();
-        }
 	}
 
 	@Override
