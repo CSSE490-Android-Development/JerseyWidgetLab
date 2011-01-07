@@ -48,7 +48,7 @@ public class EditJersey extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent result = new Intent();
-				result.putExtra(ShowJersey.PLAYER_NAME, mName.getText() + "");
+				result.putExtra(ShowJersey.PLAYER_NAME, mName.getText().toString().toUpperCase());
 				String numberString = mNumber.getText() + "";
 				if(numberString.length() > 0) {
 					result.putExtra(ShowJersey.PLAYER_NUMBER, Integer.parseInt(numberString));
