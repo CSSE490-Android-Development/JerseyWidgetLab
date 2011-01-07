@@ -24,7 +24,8 @@
 		android:layout_height="wrap_content"
 		android:layout_centerInParent="true"
 		android:text="@string/start_number"
-		android:textSize="90sp"/>
+		android:textSize="90sp"
+		android:textColor="@color/text"/>
 	<TextView
 		android:id="@+id/name"
 		android:layout_width="wrap_content"
@@ -32,5 +33,6 @@
 		android:layout_centerHorizontal="true"
 		android:layout_above="@id/number"
 		android:text="@string/start_name"
-		android:textSize="36sp"/>
+		android:textSize="36sp"
+		android:textColor="@color/text"/>
 </RelativeLayout>
