@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.ToggleButton;
 
 public class EditJersey extends Activity {
@@ -15,8 +15,8 @@ public class EditJersey extends Activity {
 	private Button mCancelButton;
 	private ToggleButton mIsBlueJerseyButton;
 	
-	private TextView mName;
-	private TextView mNumber;
+	private EditText mName;
+	private EditText mNumber;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,15 +27,18 @@ public class EditJersey extends Activity {
 		mCancelButton = (Button)findViewById(R.id.cancel);
 		mIsBlueJerseyButton = (ToggleButton)findViewById(R.id.jersey_toggle);
 		
-		mName = (TextView) findViewById(R.id.name_edit);
-		mNumber = (TextView) findViewById(R.id.number_edit);
+		mName = (EditText) findViewById(R.id.name_edit);
+		mNumber = (EditText) findViewById(R.id.number_edit);
 		
 		mOkButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent result = new Intent();
-				result.putExtra(ShowJersey.PLAYER_NAME, mName.getText());
-				result.putExtra(ShowJersey.PLAYER_NUMBER, Integer.parseInt((String) mNumber.getText()));
+				result.putExtra(ShowJersey.PLAYER_NAME, mName.getText() + "");
+				String numberString = mNumber.getText() + "";
+				if(numberString.length() > 0) {
+					result.putExtra(ShowJersey.PLAYER_NUMBER, Integer.parseInt(numberString));
+				}
 				result.putExtra(ShowJersey.IS_BLUE_JERSEY, mIsBlueJerseyButton.isChecked());
 				setResult(Activity.RESULT_OK, result);
 				finish();
