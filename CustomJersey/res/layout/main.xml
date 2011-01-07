@@ -3,5 +3,35 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical"
 	android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
+	android:layout_height="fill_parent"
+	android:background="@color/background">
+	<ImageView
+		android:id="@+id/jersey"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerInParent="true"
+		android:src="@drawable/blue_jersey"/>
+	<Button
+		android:id="@+id/edit_button"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentBottom="true"
+		android:text="@string/edit"
+		android:textSize="20sp"/>
+	<TextView
+		android:id="@+id/number"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerInParent="true"
+		android:text="@string/start_number"
+		android:textSize="90sp"/>
+	<TextView
+		android:id="@+id/name"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_above="@id/number"
+		android:text="@string/start_name"
+		android:textSize="36sp"/>
 </RelativeLayout>
