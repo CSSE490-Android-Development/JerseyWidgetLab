@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -50,6 +53,7 @@ public class ShowJersey extends Activity {
 	    Typeface jerseyThin = Typeface.createFromAsset(getAssets(), "fonts/sportsjersey.ttf");
 		mPlayerNumberView.setTypeface(jerseyThick);
 		mPlayerNameView.setTypeface(jerseyThin);
+
 
 		// Load values from saved prefs
 		mSettings = getPreferences(MODE_PRIVATE);
@@ -118,6 +122,20 @@ public class ShowJersey extends Activity {
 	protected void onResume() {
 		super.onResume();
 		updateJersey();
+        
+        // Resize the name
+        Rect bounds = new Rect();
+        Paint textPaint = mPlayerNameView.getPaint();
+        textPaint.getTextBounds(mPlayerName, 0, mPlayerName.length(), bounds);
+        int textWidth = bounds.width();
+        
+        while (textWidth > 170) {
+            mPlayerNameView.setTextSize(mPlayerNameView.getTextSize() - 1);
+            bounds = new Rect();
+            textPaint = mPlayerNameView.getPaint();
+            textPaint.getTextBounds(mPlayerName, 0, mPlayerName.length(), bounds);
+            textWidth = bounds.width();
+        }
 	}
 
 	@Override
