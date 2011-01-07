@@ -10,6 +10,9 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -78,11 +81,7 @@ public class ShowJersey extends Activity {
 		mEditButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent editIntent = new Intent(ShowJersey.this, EditJersey.class);
-				editIntent.putExtra(PLAYER_NAME, mPlayerName);
-				editIntent.putExtra(PLAYER_NUMBER, mPlayerNumber);
-				editIntent.putExtra(IS_BLUE_JERSEY, mIsBlueJersey);
-				startActivityForResult(editIntent, EDIT_JERSEY_REQUEST_CODE);
+				takeMeToTheEditPage();
 			}
 		});
 		
@@ -94,6 +93,14 @@ public class ShowJersey extends Activity {
 		});
 	}
 
+	private void takeMeToTheEditPage() {
+		Intent editIntent = new Intent(ShowJersey.this, EditJersey.class);
+		editIntent.putExtra(PLAYER_NAME, mPlayerName);
+		editIntent.putExtra(PLAYER_NUMBER, mPlayerNumber);
+		editIntent.putExtra(IS_BLUE_JERSEY, mIsBlueJersey);
+		startActivityForResult(editIntent, EDIT_JERSEY_REQUEST_CODE);
+	}
+	
 	private void updateJersey() {
 		mPlayerNameView.setText(mPlayerName);
 		mPlayerNumberView.setText(mPlayerNumber + "");
@@ -180,5 +187,34 @@ public class ShowJersey extends Activity {
 		}
 		
 		mJerseyView.setImageDrawable(mRes.getDrawable(mHiddenJerseys[mHiddenJerseyIndex]));
+	}
+	
+	/**
+	 * Fired when the options menu is created
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+
+		MenuInflater inflater = new MenuInflater(this);
+		inflater.inflate(R.menu.menu, menu);
+		return true;
+	}
+	
+
+
+	/**
+	 * Fired when an options menu item is selected.
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+		case R.id.menu_edit:
+			takeMeToTheEditPage();
+			break;
+
+		}
+		return true;
 	}
 }
