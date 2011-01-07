@@ -21,6 +21,8 @@ public class EditJersey extends Activity {
 	
 	private Resources mRes;
 	
+	private int mNumberValue;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,8 +37,10 @@ public class EditJersey extends Activity {
 		mName = (EditText) findViewById(R.id.name_edit);
 		mNumber = (EditText) findViewById(R.id.number_edit);
 		
+		mNumberValue = getIntent().getIntExtra(ShowJersey.PLAYER_NUMBER, Integer.parseInt(mRes.getString(R.string.start_number)));
+		
 		mName.setText(getIntent().getStringExtra(ShowJersey.PLAYER_NAME));
-		mNumber.setText(getIntent().getIntExtra(ShowJersey.PLAYER_NUMBER, Integer.parseInt(mRes.getString(R.string.start_number))) + "");
+		mNumber.setText(mNumberValue + "");
 		
 		mIsBlueJerseyButton.setChecked(!getIntent().getBooleanExtra(ShowJersey.IS_BLUE_JERSEY, ShowJersey.DEFAULT_JERSEY_COLOR));
 		
@@ -48,6 +52,8 @@ public class EditJersey extends Activity {
 				String numberString = mNumber.getText() + "";
 				if(numberString.length() > 0) {
 					result.putExtra(ShowJersey.PLAYER_NUMBER, Integer.parseInt(numberString));
+				} else {
+					result.putExtra(ShowJersey.PLAYER_NUMBER, mNumberValue);
 				}
 				result.putExtra(ShowJersey.IS_BLUE_JERSEY, !mIsBlueJerseyButton.isChecked());
 				setResult(Activity.RESULT_OK, result);
