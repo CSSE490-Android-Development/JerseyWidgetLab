@@ -2,6 +2,7 @@ package com.fernferret.customjersey;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,10 +19,14 @@ public class EditJersey extends Activity {
 	private EditText mName;
 	private EditText mNumber;
 	
+	private Resources mRes;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit);
+		
+		mRes = getResources();
 		
 		mOkButton = (Button)findViewById(R.id.ok);
 		mCancelButton = (Button)findViewById(R.id.cancel);
@@ -29,6 +34,11 @@ public class EditJersey extends Activity {
 		
 		mName = (EditText) findViewById(R.id.name_edit);
 		mNumber = (EditText) findViewById(R.id.number_edit);
+		
+		mName.setText(getIntent().getStringExtra(ShowJersey.PLAYER_NAME));
+		mNumber.setText(getIntent().getIntExtra(ShowJersey.PLAYER_NUMBER, Integer.parseInt(mRes.getString(R.string.start_number))) + "");
+		
+		mIsBlueJerseyButton.setChecked(!getIntent().getBooleanExtra(ShowJersey.IS_BLUE_JERSEY, ShowJersey.DEFAULT_JERSEY_COLOR));
 		
 		mOkButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -39,7 +49,7 @@ public class EditJersey extends Activity {
 				if(numberString.length() > 0) {
 					result.putExtra(ShowJersey.PLAYER_NUMBER, Integer.parseInt(numberString));
 				}
-				result.putExtra(ShowJersey.IS_BLUE_JERSEY, mIsBlueJerseyButton.isChecked());
+				result.putExtra(ShowJersey.IS_BLUE_JERSEY, !mIsBlueJerseyButton.isChecked());
 				setResult(Activity.RESULT_OK, result);
 				finish();
 			}

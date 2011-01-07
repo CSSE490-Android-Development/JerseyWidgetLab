@@ -62,6 +62,7 @@ public class ShowJersey extends Activity {
 				Intent editIntent = new Intent(ShowJersey.this, EditJersey.class);
 				editIntent.putExtra(PLAYER_NAME, mPlayerName);
 				editIntent.putExtra(PLAYER_NUMBER, mPlayerNumber);
+				editIntent.putExtra(IS_BLUE_JERSEY, mIsBlueJersey);
 				startActivityForResult(editIntent, EDIT_JERSEY_REQUEST_CODE);
 			}
 		});
