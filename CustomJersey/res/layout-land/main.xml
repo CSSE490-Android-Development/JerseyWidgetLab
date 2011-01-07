@@ -24,9 +24,9 @@
 		android:layout_height="wrap_content"
 		android:layout_alignParentBottom="true"
 		android:layout_centerHorizontal="true"
-		android:layout_marginBottom="130dip"
+		android:layout_marginBottom="68dip"
 		android:text="@string/start_number"
-		android:textSize="120sp"
+		android:textSize="78sp"
 		android:textColor="@color/text"
 		android:maxLength="3"/>
 	<TextView
@@ -37,6 +37,6 @@
 		android:layout_above="@id/number"
 		android:layout_marginBottom="20dip"
 		android:text="@string/start_name"
-		android:textSize="50sp"
+		android:textSize="35sp"
 		android:textColor="@color/text"/>
 </RelativeLayout>
