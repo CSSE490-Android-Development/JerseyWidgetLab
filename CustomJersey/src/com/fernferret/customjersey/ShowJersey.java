@@ -8,56 +8,86 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 public class ShowJersey extends Activity {
 
 	static final String PLAYER_NAME = "PLAYERNAME";
 	static final String PLAYER_NUMBER = "PLAYERNUMBER";
+	static final String IS_BLUE_JERSEY = "ISBLUEJERSEY";
+	static final boolean DEFAULT_JERSEY_COLOR = true;
 	static final int EDIT_JERSEY_REQUEST_CODE = 0;
-	
+
 	private Button mEditButton;
+	private ToggleButton mIsBlueButton;
 	private TextView mPlayerNameView;
 	private TextView mPlayerNumberView;
-	
+	private ImageView mJerseyView;
+
 	private SharedPreferences mSettings;
 	private Resources mRes;
-	
+
 	private String mPlayerName;
 	private int mPlayerNumber;
+	private boolean mIsBlueJersey;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		
+
 		// Load the UI components
-		mPlayerNameView = (TextView)findViewById(R.id.name);
-		mPlayerNumberView = (TextView)findViewById(R.id.number);
+		mPlayerNameView = (TextView) findViewById(R.id.name);
+		mPlayerNumberView = (TextView) findViewById(R.id.number);
 		mEditButton = (Button) findViewById(R.id.edit_button);
-		
+		mIsBlueButton = (ToggleButton) findViewById(R.id.jersey_toggle);
+		mJerseyView = (ImageView) findViewById(R.id.jersey);
+
 		// Load values from saved prefs
 		mSettings = getPreferences(MODE_PRIVATE);
-		
+
 		// Load resources
 		mRes = getResources();
-		
-		// Pull default values from XML
-		mPlayerName = mSettings.getString(PLAYER_NAME, mRes.getString(R.string.start_name));
-		mPlayerNumber = mSettings.getInt(PLAYER_NUMBER, Integer.parseInt(mRes.getString(R.string.start_number)));
-		
+
+		// Pull default values from XML and UI components
+		mPlayerName = mSettings.getString(PLAYER_NAME,
+				mRes.getString(R.string.start_name));
+		mPlayerNumber = mSettings.getInt(PLAYER_NUMBER,
+				Integer.parseInt(mRes.getString(R.string.start_number)));
+		mIsBlueJersey = mSettings.getBoolean(IS_BLUE_JERSEY,
+				DEFAULT_JERSEY_COLOR);
+
+		updateJersey();
+
 		// Set the Onclick action
 		mEditButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent editIntent = new Intent(ShowJersey.this, EditJersey.class);
+				Intent editIntent = new Intent(ShowJersey.this,
+						EditJersey.class);
 				editIntent.putExtra(PLAYER_NAME, mPlayerName);
 				editIntent.putExtra(PLAYER_NUMBER, mPlayerNumber);
 				startActivityForResult(editIntent, EDIT_JERSEY_REQUEST_CODE);
 			}
 		});
 	}
-	
+
+	private void updateJersey() {
+		mPlayerNameView.setText(mPlayerName);
+		mPlayerNumberView.setText(mPlayerNumber + "");
+
+		if (mIsBlueJersey) {
+			mJerseyView.setImageDrawable(mRes
+					.getDrawable(R.drawable.blue_jersey));
+		} else {
+			mJerseyView.setImageDrawable(mRes
+					.getDrawable(R.drawable.red_jersey));
+		}
+
+	}
+
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -71,6 +101,20 @@ public class ShowJersey extends Activity {
 		// Commit the editor
 		editor.commit();
 	}
-	
-	
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		updateJersey();
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == EDIT_JERSEY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+			mPlayerName = data.getStringExtra(PLAYER_NAME);
+			mPlayerNumber = data.getIntExtra(PLAYER_NUMBER, Integer.parseInt(mRes.getString(R.string.start_number)));
+			mIsBlueJersey = data.getBooleanExtra(IS_BLUE_JERSEY, DEFAULT_JERSEY_COLOR);
+		}
+	}
 }
