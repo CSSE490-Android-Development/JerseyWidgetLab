@@ -16,7 +16,8 @@
 		android:layout_height="wrap_content"
 		android:layout_centerHorizontal="true"
 		android:layout_below="@id/name_text"
-		android:inputType="textCapCharacters"/>
+		android:inputType="textCapCharacters"
+		android:singleLine="true"/>
 	<TextView
 		android:id="@+id/number_view"
 		android:layout_width="wrap_content"
@@ -30,7 +31,8 @@
 		android:layout_height="wrap_content"
 		android:layout_below="@id/number_view"
 		android:layout_marginBottom="8dip"
-		android:inputType="number"/>
+		android:inputType="number"
+		android:singleLine="true"/>
 	<ToggleButton
 		android:id="@+id/jersey_toggle"
 		android:layout_width="wrap_content"
