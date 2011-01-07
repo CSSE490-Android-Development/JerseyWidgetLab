@@ -20,7 +20,9 @@ public class ShowJersey extends Activity {
 	static final String PLAYER_NAME = "PLAYERNAME";
 	static final String PLAYER_NUMBER = "PLAYERNUMBER";
 	static final String IS_BLUE_JERSEY = "ISBLUEJERSEY";
+	static final String JERSEY_COLOR = "JERSEYCOLOR";
 	static final boolean DEFAULT_JERSEY_COLOR = true;
+	static final int DEFAULT_COLOR_INDEX = 0;
 	static final int EDIT_JERSEY_REQUEST_CODE = 0;
 
 	private Button mEditButton;
@@ -35,7 +37,7 @@ public class ShowJersey extends Activity {
 	private int mPlayerNumber;
 	private boolean mIsBlueJersey;
 	private int[] mHiddenJerseys;
-	private int mHiddenJerseyIndex;
+	private int mHiddenJerseyIndex = 0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -65,7 +67,10 @@ public class ShowJersey extends Activity {
 		mPlayerName = mSettings.getString(PLAYER_NAME, mRes.getString(R.string.start_name));
 		mPlayerNumber = mSettings.getInt(PLAYER_NUMBER, Integer.parseInt(mRes.getString(R.string.start_number)));
 		mIsBlueJersey = mSettings.getBoolean(IS_BLUE_JERSEY, DEFAULT_JERSEY_COLOR);
+		mHiddenJerseyIndex = mSettings.getInt(JERSEY_COLOR, DEFAULT_COLOR_INDEX);
 
+		mHiddenJerseys = new int[]{R.drawable.red_jersey,R.drawable.orange_jersey,R.drawable.blue_jersey,R.drawable.green_jersey};
+		
 		updateJersey();
 
 		// Set the Onclick action
@@ -86,20 +91,20 @@ public class ShowJersey extends Activity {
 				changeColorSecret();
 			}
 		});
-		
-		mHiddenJerseys = new int[]{R.drawable.red_jersey,R.drawable.orange_jersey,R.drawable.blue_jersey,R.drawable.green_jersey};
-		
 	}
 
 	private void updateJersey() {
 		mPlayerNameView.setText(mPlayerName);
 		mPlayerNumberView.setText(mPlayerNumber + "");
-
-		if (mIsBlueJersey) {
+		Log.e("SJ", "Index: " + mHiddenJerseyIndex);
+		if (mHiddenJerseyIndex != -1) {
+			mJerseyView.setImageDrawable(mRes.getDrawable(mHiddenJerseys[mHiddenJerseyIndex]));
+		} else if (mIsBlueJersey) {
 			mJerseyView.setImageDrawable(mRes.getDrawable(R.drawable.blue_jersey));
 		} else {
 			mJerseyView.setImageDrawable(mRes.getDrawable(R.drawable.red_jersey));
 		}
+		
 
 	}
 
@@ -113,6 +118,7 @@ public class ShowJersey extends Activity {
 		editor.putString(PLAYER_NAME, mPlayerName);
 		editor.putInt(PLAYER_NUMBER, mPlayerNumber);
 		editor.putBoolean(IS_BLUE_JERSEY, mIsBlueJersey);
+		editor.putInt(JERSEY_COLOR, mHiddenJerseyIndex);
 
 		// Commit the editor
 		editor.commit();
@@ -145,22 +151,22 @@ public class ShowJersey extends Activity {
 			mPlayerName = data.getStringExtra(PLAYER_NAME);
 			mPlayerNumber = data.getIntExtra(PLAYER_NUMBER, Integer.parseInt(mRes.getString(R.string.start_number)));
 			mIsBlueJersey = data.getBooleanExtra(IS_BLUE_JERSEY, DEFAULT_JERSEY_COLOR);
+			mHiddenJerseyIndex = -1;
 		}
 	}
 	
 	private void changeColorSecret() {
+		if(mHiddenJerseyIndex == -1) {
+			if(mIsBlueJersey) {
+				mHiddenJerseyIndex = 2;
+			} else {
+				mHiddenJerseyIndex = 0;
+			}
+		}
 		mHiddenJerseyIndex++;
 		if(mHiddenJerseyIndex >= mHiddenJerseys.length) {
 			mHiddenJerseyIndex = 0;
 		}
-		
-		// Special case checks, so we always get an image
-//		if(mHiddenJerseyIndex == 2 && mIsBlueJersey) {
-//			mHiddenJerseyIndex++;
-//		}
-//		if(mHiddenJerseyIndex == 0 && !mIsBlueJersey) {
-//			mHiddenJerseyIndex++;
-//		}
 		
 		mJerseyView.setImageDrawable(mRes.getDrawable(mHiddenJerseys[mHiddenJerseyIndex]));
 	}
