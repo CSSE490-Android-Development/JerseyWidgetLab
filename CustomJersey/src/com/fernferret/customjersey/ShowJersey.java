@@ -41,6 +41,8 @@ public class ShowJersey extends Activity {
 		mPlayerNumberView = (TextView) findViewById(R.id.number);
 		mEditButton = (Button) findViewById(R.id.edit_button);
 		mJerseyView = (ImageView) findViewById(R.id.jersey);
+		
+		//mPlayerNameView.setTyp
 
 		// Load values from saved prefs
 		mSettings = getPreferences(MODE_PRIVATE);
