@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,6 +42,12 @@ public class ShowJersey extends Activity {
 		mPlayerNumberView = (TextView) findViewById(R.id.number);
 		mEditButton = (Button) findViewById(R.id.edit_button);
 		mJerseyView = (ImageView) findViewById(R.id.jersey);
+		
+		// Set custom fonts
+		Typeface jerseyThick = Typeface.createFromAsset(getAssets(), "fonts/Jersey M54.ttf");
+	    Typeface jerseyThin = Typeface.createFromAsset(getAssets(), "fonts/sportsjersey.ttf");
+		mPlayerNumberView.setTypeface(jerseyThick);
+		mPlayerNameView.setTypeface(jerseyThin);
 
 		// Load values from saved prefs
 		mSettings = getPreferences(MODE_PRIVATE);
