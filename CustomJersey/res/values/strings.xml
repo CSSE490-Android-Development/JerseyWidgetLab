@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Jersey Customizer</string>
+    <string name="title_edit">Edit the Jersey</string>
+    
     <string name="start_name">Fisher</string>
     <string name="start_number">42</string>
     <string name="edit">Edit</string>
