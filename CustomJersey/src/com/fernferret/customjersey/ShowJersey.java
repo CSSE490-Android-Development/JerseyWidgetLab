@@ -10,7 +10,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 public class ShowJersey extends Activity {
 
@@ -21,7 +20,6 @@ public class ShowJersey extends Activity {
 	static final int EDIT_JERSEY_REQUEST_CODE = 0;
 
 	private Button mEditButton;
-	private ToggleButton mIsBlueButton;
 	private TextView mPlayerNameView;
 	private TextView mPlayerNumberView;
 	private ImageView mJerseyView;
@@ -42,7 +40,6 @@ public class ShowJersey extends Activity {
 		mPlayerNameView = (TextView) findViewById(R.id.name);
 		mPlayerNumberView = (TextView) findViewById(R.id.number);
 		mEditButton = (Button) findViewById(R.id.edit_button);
-		mIsBlueButton = (ToggleButton) findViewById(R.id.jersey_toggle);
 		mJerseyView = (ImageView) findViewById(R.id.jersey);
 
 		// Load values from saved prefs
@@ -52,12 +49,9 @@ public class ShowJersey extends Activity {
 		mRes = getResources();
 
 		// Pull default values from XML and UI components
-		mPlayerName = mSettings.getString(PLAYER_NAME,
-				mRes.getString(R.string.start_name));
-		mPlayerNumber = mSettings.getInt(PLAYER_NUMBER,
-				Integer.parseInt(mRes.getString(R.string.start_number)));
-		mIsBlueJersey = mSettings.getBoolean(IS_BLUE_JERSEY,
-				DEFAULT_JERSEY_COLOR);
+		mPlayerName = mSettings.getString(PLAYER_NAME, mRes.getString(R.string.start_name));
+		mPlayerNumber = mSettings.getInt(PLAYER_NUMBER, Integer.parseInt(mRes.getString(R.string.start_number)));
+		mIsBlueJersey = mSettings.getBoolean(IS_BLUE_JERSEY, DEFAULT_JERSEY_COLOR);
 
 		updateJersey();
 
@@ -65,8 +59,7 @@ public class ShowJersey extends Activity {
 		mEditButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent editIntent = new Intent(ShowJersey.this,
-						EditJersey.class);
+				Intent editIntent = new Intent(ShowJersey.this, EditJersey.class);
 				editIntent.putExtra(PLAYER_NAME, mPlayerName);
 				editIntent.putExtra(PLAYER_NUMBER, mPlayerNumber);
 				startActivityForResult(editIntent, EDIT_JERSEY_REQUEST_CODE);
@@ -79,11 +72,9 @@ public class ShowJersey extends Activity {
 		mPlayerNumberView.setText(mPlayerNumber + "");
 
 		if (mIsBlueJersey) {
-			mJerseyView.setImageDrawable(mRes
-					.getDrawable(R.drawable.blue_jersey));
+			mJerseyView.setImageDrawable(mRes.getDrawable(R.drawable.blue_jersey));
 		} else {
-			mJerseyView.setImageDrawable(mRes
-					.getDrawable(R.drawable.red_jersey));
+			mJerseyView.setImageDrawable(mRes.getDrawable(R.drawable.red_jersey));
 		}
 
 	}
