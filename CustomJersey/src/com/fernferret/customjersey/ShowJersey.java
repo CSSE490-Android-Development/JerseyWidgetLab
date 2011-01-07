@@ -89,6 +89,7 @@ public class ShowJersey extends Activity {
 		// Put in the number of buttons
 		editor.putString(PLAYER_NAME, mPlayerName);
 		editor.putInt(PLAYER_NUMBER, mPlayerNumber);
+		editor.putBoolean(IS_BLUE_JERSEY, mIsBlueJersey);
 
 		// Commit the editor
 		editor.commit();
