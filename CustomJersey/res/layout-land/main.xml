@@ -23,7 +23,7 @@
 		android:id="@+id/number"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true"
+		android:layout_alignBottom="@id/jersey"
 		android:layout_centerHorizontal="true"
 		android:layout_marginBottom="68dip"
 		android:text="@string/start_number"
