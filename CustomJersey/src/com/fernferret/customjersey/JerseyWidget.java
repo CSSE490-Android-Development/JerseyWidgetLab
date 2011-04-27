@@ -1,5 +1,6 @@
 package com.fernferret.customjersey;
 
+import android.app.Activity;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -7,6 +8,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -33,9 +35,9 @@ public class JerseyWidget extends AppWidgetProvider {
 			views.setOnClickPendingIntent(R.id.jersey, pendingAppIntent);
 			views.setOnClickPendingIntent(R.id.settings, pendingSettingsIntent);
 			views.setOnClickPendingIntent(R.id.refresh, pendingRefreshIntent);
-			SharedPreferences settings = context.getSharedPreferences("ShowJersey", 1);
+			SharedPreferences settings = context.getSharedPreferences("ShowJersey", Activity.MODE_WORLD_READABLE);
 			Log.w("Jersey", "Number: " + settings.contains(ShowJersey.PLAYER_NUMBER));
-			updateJerseyWidget(settings);
+			updateJerseyWidget(settings, context.getResources());
 			appWidgetManager.updateAppWidget(appWidgetId, views);
 		}
 	}
@@ -43,10 +45,10 @@ public class JerseyWidget extends AppWidgetProvider {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 	     if (intent.getAction().equals(UPDATE_WIDGET)) {
-	    	 SharedPreferences settings = context.getSharedPreferences("ShowJersey", 1);
+	    	 SharedPreferences settings = context.getSharedPreferences("ShowJersey", Activity.MODE_WORLD_READABLE);
 	    	 Log.w("Jersey", "Recieved update for widget request!");
 	    	 
-	    	 updateJerseyWidget(settings);
+	    	 updateJerseyWidget(settings, context.getResources());
 	    	 ComponentName jerseyUpdate = new ComponentName(context, JerseyWidget.class);  
              AppWidgetManager.getInstance(context).updateAppWidget(jerseyUpdate, views); 
 	    	 
@@ -54,25 +56,22 @@ public class JerseyWidget extends AppWidgetProvider {
 	     super.onReceive(context, intent);
 	}
 	
-	private void updateJerseyWidget(SharedPreferences settings) {
+	private void updateJerseyWidget(SharedPreferences settings, Resources res) {
 		if(settings.contains(ShowJersey.PLAYER_NUMBER)) {
-			Log.w("Jersey", "Number: " + settings.getInt(ShowJersey.PLAYER_NUMBER, 0));
-			views.setTextViewText(R.id.widget_number, "" + settings.getInt(ShowJersey.PLAYER_NUMBER, 0));
-			// TODO: Set the color to a lighter one if the blue jersey is selected
+			Log.w("Jersey", "Number: " + settings.getInt(ShowJersey.PLAYER_NUMBER, Integer.parseInt(res.getString(R.string.start_number))));
+			views.setTextViewText(R.id.widget_number, "" + settings.getInt(ShowJersey.PLAYER_NUMBER, Integer.parseInt(res.getString(R.string.start_number))));
 		}
-		if(settings.contains(ShowJersey.JERSEY_COLOR)) {
-			int jerseyIndex = settings.getInt(ShowJersey.JERSEY_COLOR, 0);
-			Log.w("Jersey", "Color Index(pre): " + jerseyIndex);
-			if(jerseyIndex < 0 && settings.contains(ShowJersey.IS_BLUE_JERSEY)) {
-				boolean blue_jersey = settings.getBoolean(ShowJersey.IS_BLUE_JERSEY, true);
-				if(blue_jersey) {
-					jerseyIndex = 2; // Blue Jersey color
-				} else {
-					jerseyIndex = 0;
-				}
-			}
-			Log.w("Jersey", "Color Index: " + jerseyIndex);
+		if(settings.contains(ShowJersey.JERSEY_COLOR_INDEX)) {
+			int jerseyIndex = settings.getInt(ShowJersey.JERSEY_COLOR_INDEX, Integer.parseInt(res.getString(R.string.start_color_index)));
 			views.setImageViewResource(R.id.jersey, ShowJersey.JERSEY_ARRAY_MINI[jerseyIndex]);
+			
+			// Special case for the Blue Jersey, it needs a lighter font
+			if(jerseyIndex == 2) {
+				views.setTextColor(R.id.widget_number, res.getColor(R.color.text_widget_light));
+			} else {
+				views.setTextColor(R.id.widget_number, res.getColor(R.color.text_widget_dark));
+				
+			}
 			 
 		}
 	}

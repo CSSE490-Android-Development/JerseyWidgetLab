@@ -11,13 +11,13 @@
 		android:layout_centerInParent="true"/>
 	<ImageView
 		android:id="@+id/settings"
-		android:src="@drawable/jersey_widget_options"
+		android:src="@drawable/jersey_widget_options_light"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_toLeftOf="@id/jersey"/>
 	<ImageView
 		android:id="@+id/refresh"
-		android:src="@drawable/jersey_widget_refresh"
+		android:src="@drawable/jersey_widget_refresh_light"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_toRightOf="@id/jersey"/>
@@ -26,6 +26,5 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="00"
-		android:textColor="#FF666666"
 		android:layout_centerInParent="true"/>
 </RelativeLayout>

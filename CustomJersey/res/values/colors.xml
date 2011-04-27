@@ -2,4 +2,6 @@
 <resources>
 	<color name="background">#FFF</color>
 	<color name="text">#FFF</color>
+	<color name="text_widget_light">#999</color>
+	<color name="text_widget_dark">#000</color>
 </resources>

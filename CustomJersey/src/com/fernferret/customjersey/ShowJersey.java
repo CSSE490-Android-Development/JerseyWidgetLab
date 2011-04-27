@@ -27,7 +27,6 @@ public class ShowJersey extends Activity {
 	static final String PLAYER_NAME = "PLAYERNAME";
 	static final String PLAYER_NUMBER = "PLAYERNUMBER";
 	static final String IS_BLUE_JERSEY = "ISBLUEJERSEY";
-	static final String JERSEY_COLOR = "JERSEYCOLOR";
 	static final String JERSEY_COLOR_INDEX = "JERSEYCOLORINDEX";
 	static final boolean DEFAULT_JERSEY_COLOR = true;
 	static final int DEFAULT_COLOR_INDEX = 0;
@@ -84,13 +83,13 @@ public class ShowJersey extends Activity {
 		// Pull default values from XML and UI components
 		mPlayerName = mSettings.getString(PLAYER_NAME, mRes.getString(R.string.start_name));
 		mPlayerNumber = mSettings.getInt(PLAYER_NUMBER, Integer.parseInt(mRes.getString(R.string.start_number)));
-		mJerseyColorIndex = mSettings.getInt(JERSEY_COLOR, DEFAULT_COLOR_INDEX);
+		mJerseyColorIndex = mSettings.getInt(JERSEY_COLOR_INDEX, DEFAULT_COLOR_INDEX);
 		updateJersey();
 	}
 	
 	private void updateJersey() {
 		mPlayerNameView.setText(mPlayerName);
-		// We need the extra ""s here because if we don't pass setText a string; 
+		// We need the extra ""s here because if we don't pass setText a string;
 		// It'll assume we've passed a resource ID
 		mPlayerNumberView.setText(mPlayerNumber + "");
 		Log.e("SJ", "Index: " + mJerseyColorIndex);
@@ -133,7 +132,7 @@ public class ShowJersey extends Activity {
 		// Save the values
 		editor.putString(PLAYER_NAME, mPlayerName);
 		editor.putInt(PLAYER_NUMBER, mPlayerNumber);
-		editor.putInt(JERSEY_COLOR, mJerseyColorIndex);
+		editor.putInt(JERSEY_COLOR_INDEX, mJerseyColorIndex);
 		
 		// Commit the editor
 		editor.commit();
@@ -196,7 +195,6 @@ public class ShowJersey extends Activity {
 				Intent editIntent = new Intent(ShowJersey.this, EditJersey.class);
 				startActivity(editIntent);
 				break;
-			
 		}
 		return true;
 	}
