@@ -11,21 +11,19 @@
 			android:name=".ShowJersey"
 			android:label="@string/app_name">
 			<intent-filter>
-				<action
-					android:name="android.intent.action.MAIN"/>
-				<category
-					android:name="android.intent.category.LAUNCHER"/>
+				<action android:name="android.intent.action.MAIN"/>
+				<category android:name="android.intent.category.LAUNCHER"/>
 			</intent-filter>
 		</activity>
 		<activity
 			android:name=".EditJersey"
-			android:label="@string/title_edit"></activity>
+			android:label="@string/title_edit"
+			android:screenOrientation="portrait"/>
 		<receiver
 			android:name=".JerseyWidget"
 			android:label="@string/app_name">
 			<intent-filter>
-				<action
-					android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+				<action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
 			</intent-filter>
 			<meta-data
 				android:name="android.appwidget.provider"

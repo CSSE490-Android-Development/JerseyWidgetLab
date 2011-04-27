@@ -42,13 +42,21 @@
 		android:layout_below="@id/number_edit"
 		android:text="@string/color_prompt"
 		android:textSize="24sp"/>
+	<ImageView
+		android:id="@+id/jersey_preview"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/jersey_title"
+		android:layout_alignLeft="@id/number_edit"
+		android:src="@drawable/blue_jersey_widget"/>
 	<Spinner
 		android:id="@+id/jersey_color"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
+		android:layout_toRightOf="@id/jersey_preview"
 		android:layout_below="@id/jersey_title"
 		android:prompt="@string/color_prompt"
-		android:layout_marginBottom="8dip"/>
+		android:layout_marginBottom="12dip"/>
 	<Button
 		android:id="@+id/ok"
 		android:layout_width="wrap_content"

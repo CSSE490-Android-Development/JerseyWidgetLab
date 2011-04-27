@@ -11,6 +11,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 public class EditJersey extends Activity {
@@ -21,6 +22,7 @@ public class EditJersey extends Activity {
 	private EditText mName;
 	private EditText mNumber;
 	private Spinner mColorPicker;
+	private ImageView mJerseyPreview;
 	
 	private Resources mRes;
 	private SharedPreferences mSettings;
@@ -48,6 +50,7 @@ public class EditJersey extends Activity {
 		// Load Textboxes from view
 		mName = (EditText) findViewById(R.id.name_edit);
 		mNumber = (EditText) findViewById(R.id.number_edit);
+		mJerseyPreview = (ImageView) findViewById(R.id.jersey_preview);
 		
 		// Load the color spinner
 		mColorPicker = (Spinner) findViewById(R.id.jersey_color);
@@ -59,6 +62,8 @@ public class EditJersey extends Activity {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 				mColorIndexValue = pos;
+				mJerseyPreview.setImageDrawable(mRes.getDrawable(ShowJersey.JERSEY_ARRAY_MINI[pos]));
+				
 			}
 
 			@Override
@@ -72,6 +77,7 @@ public class EditJersey extends Activity {
 		mName.setText(mNameValue);
 		mNumber.setText(mNumberValue + "");
 		mColorPicker.setSelection(mColorIndexValue);
+		mJerseyPreview.setImageDrawable(mRes.getDrawable(ShowJersey.JERSEY_ARRAY_MINI[mColorIndexValue]));
 		
 		// Set click listeners for the OK and Cancel buttons
 		mOkButton.setOnClickListener(new OnClickListener() {
