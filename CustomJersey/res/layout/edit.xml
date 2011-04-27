@@ -3,8 +3,9 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:paddingLeft="36dp"
-	android:paddingRight="36dp">
+	android:paddingTop="10dp"
+	android:paddingLeft="20dp"
+	android:paddingRight="20dp">
 	<TextView
 		android:id="@+id/name_text"
 		android:layout_width="wrap_content"
@@ -18,7 +19,8 @@
 		android:layout_centerHorizontal="true"
 		android:layout_below="@id/name_text"
 		android:inputType="textCapCharacters"
-		android:singleLine="true"/>
+		android:singleLine="true"
+		android:layout_marginBottom="10dip"/>
 	<TextView
 		android:id="@+id/number_view"
 		android:layout_width="wrap_content"
@@ -48,7 +50,8 @@
 		android:layout_height="wrap_content"
 		android:layout_below="@id/jersey_title"
 		android:layout_alignLeft="@id/number_edit"
-		android:src="@drawable/blue_jersey_widget"/>
+		android:src="@drawable/blue_jersey_widget"
+		/>
 	<Spinner
 		android:id="@+id/jersey_color"
 		android:layout_width="fill_parent"
@@ -57,18 +60,28 @@
 		android:layout_below="@id/jersey_title"
 		android:prompt="@string/color_prompt"
 		android:layout_marginBottom="12dip"/>
+	<View
+		android:id="@+id/button_layout_helper"
+		android:layout_width="0dip"
+		android:layout_height="0dip"
+		android:layout_below="@id/jersey_preview"
+		android:layout_centerHorizontal="true"/>
 	<Button
 		android:id="@+id/ok"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_below="@id/jersey_color"
+		android:layout_alignLeft="@id/button_layout_helper"
 		android:layout_alignParentRight="true"
-		android:text="@string/ok"/>
+		android:text="@string/ok"
+		android:layout_marginTop="15dip"/>
 	<Button
 		android:id="@+id/cancel"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_below="@id/jersey_color"
-		android:layout_toLeftOf="@id/ok"
-		android:text="@string/cancel"/>
+		android:layout_alignRight="@id/button_layout_helper"
+		android:layout_alignParentLeft="true"
+		android:text="@string/cancel"
+		android:layout_marginTop="15dip"/>
 </RelativeLayout>
