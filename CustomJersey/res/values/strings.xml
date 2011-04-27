@@ -12,4 +12,11 @@
     <string name="blue_jersey">Blue Jersey</string>    
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="color_prompt">Choose a color:</string>
+    <string-array name="color_array">
+        <item>Red</item>
+        <item>Orange</item>
+        <item>Blue</item>
+        <item>Green</item>
+    </string-array>
 </resources>

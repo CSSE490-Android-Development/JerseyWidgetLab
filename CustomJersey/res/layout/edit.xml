@@ -35,25 +35,32 @@
 		android:inputType="number"
 		android:singleLine="true"
 		android:maxLength="3"/>
-	<ToggleButton
-		android:id="@+id/jersey_toggle"
+	<TextView
+		android:id="@+id/jersey_title"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_below="@id/number_edit"
-		android:textOn="@string/red_jersey"
-		android:textOff="@string/blue_jersey"/>
+		android:text="@string/color_prompt"
+		android:textSize="24sp"/>
+	<Spinner
+		android:id="@+id/jersey_color"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/jersey_title"
+		android:prompt="@string/color_prompt"
+		android:layout_marginBottom="8dip"/>
 	<Button
 		android:id="@+id/ok"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_below="@id/number_edit"
+		android:layout_below="@id/jersey_color"
 		android:layout_alignParentRight="true"
 		android:text="@string/ok"/>
 	<Button
 		android:id="@+id/cancel"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_below="@id/number_edit"
+		android:layout_below="@id/jersey_color"
 		android:layout_toLeftOf="@id/ok"
 		android:text="@string/cancel"/>
 </RelativeLayout>

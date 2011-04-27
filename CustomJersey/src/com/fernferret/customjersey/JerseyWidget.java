@@ -58,6 +58,7 @@ public class JerseyWidget extends AppWidgetProvider {
 		if(settings.contains(ShowJersey.PLAYER_NUMBER)) {
 			Log.w("Jersey", "Number: " + settings.getInt(ShowJersey.PLAYER_NUMBER, 0));
 			views.setTextViewText(R.id.widget_number, "" + settings.getInt(ShowJersey.PLAYER_NUMBER, 0));
+			// TODO: Set the color to a lighter one if the blue jersey is selected
 		}
 		if(settings.contains(ShowJersey.JERSEY_COLOR)) {
 			int jerseyIndex = settings.getInt(ShowJersey.JERSEY_COLOR, 0);
