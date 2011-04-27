@@ -5,6 +5,7 @@
     
     <string name="start_name">FISHER</string>
     <string name="start_number">42</string>
+    <string name="start_color_index">3</string>
     <string name="edit">Edit</string>
     <string name="name">Name</string>
     <string name="number">Number</string>

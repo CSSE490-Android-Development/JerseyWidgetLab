@@ -1,7 +1,6 @@
 package com.fernferret.customjersey;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -28,6 +27,7 @@ public class EditJersey extends Activity {
 	
 	private int mNumberValue;
 	private int mColorIndexValue;
+	private String mNameValue;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,11 @@ public class EditJersey extends Activity {
 		setContentView(R.layout.edit);
 		mSettings = getSharedPreferences("ShowJersey", Activity.MODE_WORLD_READABLE);
 		mRes = getResources();
+		
+		// Load variables from prefs
+		mNameValue = mSettings.getString(ShowJersey.PLAYER_NAME, mRes.getString(R.string.start_name));
+		mNumberValue = mSettings.getInt(ShowJersey.PLAYER_NUMBER, Integer.parseInt(mRes.getString(R.string.start_number)));
+		mColorIndexValue = mSettings.getInt(ShowJersey.JERSEY_COLOR_INDEX, Integer.parseInt(mRes.getString(R.string.start_color_index)));
 		
 		// Load buttons from view
 		mOkButton = (Button)findViewById(R.id.ok);
@@ -49,8 +54,8 @@ public class EditJersey extends Activity {
 	    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.color_array, android.R.layout.simple_spinner_item);
 	    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    mColorPicker.setAdapter(adapter);
+	    
 	    mColorPicker.setOnItemSelectedListener(new OnItemSelectedListener() {
-
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 				mColorIndexValue = pos;
@@ -61,25 +66,21 @@ public class EditJersey extends Activity {
 				// Stop. Hammer Time.
 				// We could also collaborate and listen if you prefer...
 			}
-	    	
 		});
 		
-		
-		// Get the Name, Number and Color
-		mNumberValue = mSettings.getInt(ShowJersey.PLAYER_NUMBER, Integer.parseInt(mRes.getString(R.string.start_number)));
-		
-		mName.setText(mSettings.getString(ShowJersey.PLAYER_NAME, ""));
+	    // Set all of our UI elements to the saved values
+		mName.setText(mNameValue);
 		mNumber.setText(mNumberValue + "");
+		mColorPicker.setSelection(mColorIndexValue);
 		
+		// Set click listeners for the OK and Cancel buttons
 		mOkButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// Create a new result intent
-				Intent result = new Intent();
-				result.putExtra(ShowJersey.PLAYER_NAME, mName.getText().toString().toUpperCase());
+				SharedPreferences.Editor editor = mSettings.edit();
 				
 				String numberString = mNumber.getText() + "";
-				SharedPreferences.Editor editor = mSettings.edit();
+				
 				if(numberString.length() > 0) {
 					editor.putInt(ShowJersey.PLAYER_NUMBER, Integer.parseInt(numberString));
 				} else {
@@ -94,7 +95,6 @@ public class EditJersey extends Activity {
 				editor.commit();
 				
 				// Finish the activity
-				setResult(Activity.RESULT_OK, result);
 				finish();
 			}
 		});
